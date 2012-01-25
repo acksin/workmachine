@@ -1,6 +1,7 @@
 (ns workmachine.workflow
   (:use [clojure.tools.macro :only (name-with-attributes)])
-  (:require [workmachine.jobs :as jobs]
+  (:require [resque-clojure.core :as resque]
+            [workmachine.jobs :as jobs]
             [workmachine.data-input :as input-types]
             [workmachine.data-output :as output-types]
             [workmachine.render :as render]))
@@ -69,5 +70,5 @@
         :continue (recur program job (continue instruction-label program))))))
 
 (defn start-workflow [program job]
-  (run-engine program job (instruction-label (first program))))
+  (resque/enqueue "work" "workmachine.workflow/run-engine" program job (instruction-label (first program))))
 

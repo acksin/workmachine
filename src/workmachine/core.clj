@@ -11,7 +11,7 @@
             [workmachine.data-output :as output-types]
             [workmachine.blueprints.content :as content-workflow]))
 
-(def resque-queues {:job "work-queue"})
+(def resque-queues {:job "work"})
 
 
 (defn run-workflow []
