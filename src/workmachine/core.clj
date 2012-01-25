@@ -16,8 +16,8 @@
 
 (defn run-workflow []
   (str (content-workflow/workflow [{"topic" "http://google.com"}
-                              {"topic" "http://yahoo.com"}
-                              {"topic" "http://amazon.com"}])))
+                                   {"topic" "http://yahoo.com"}
+                                   {"topic" "http://amazon.com"}])))
 
 (defn assign-view [worker-id]
   (let [worker-job (work/assign worker-id)]
