@@ -26,12 +26,13 @@
   (first statement))
 
 (defn instruction-label? [label statement]
-  (= (first statement) label))
+  (= (instruction-label statement) label))
 
-(defn verify? [statement]
-  (let [statement-metadata (first (rest statement))]
-    (and (instance? clojure.lang.PersistentArrayMap statement-metadata)
-         (contains? statement-metadata :verify))))
+;; TODO: This is if we want to be be able to redo certain tasks.
+;; (defn verify? [statement]
+;;   (let [statement-metadata (first (rest statement))]
+;;     (and (instance? clojure.lang.PersistentArrayMap statement-metadata)
+;;          (contains? statement-metadata :verify))))
 
 
 (defn instruction [statement]

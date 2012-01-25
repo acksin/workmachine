@@ -1,7 +1,7 @@
 (ns workmachine.blueprints.content
   (:use workmachine.workflow))
 
-(def workflow-definition
+(def program
   '((:topic
      {:input [(input-types/instructions "What topic are you interested in seeing?")]
       :output [(output-types/string "topic")]})
@@ -16,5 +16,5 @@
 ;;(define-workflow workflow
 (defn workflow [workflow-jobs]
   (map (fn [job]
-         (start-workflow workflow-definition job))
+         (start-workflow program job))
        workflow-jobs))
