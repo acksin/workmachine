@@ -8,7 +8,7 @@
          (start-workflow
           '((:topic
              {:input [(input-types/instructions "What topic are you interested in seeing?")]
-              :output [(output-types/string "topic")]))
+              :output [(output-types/string "topic")]})
             (:research
              {:input [(input-types/instructions "Find links to the following topics. This can be in Google, Yelp or or elsewhere.")
                       (input-types/string "topic")]
