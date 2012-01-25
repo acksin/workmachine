@@ -1,5 +1,5 @@
-(ns workengine.blueprints.content
-  (:use workengine.workflow))
+(ns workmachine.blueprints.content
+  (:use workmachine.workflow))
 
 
 ;;(define-workflow workflow

@@ -1,6 +1,6 @@
-(ns workengine.jobs
+(ns workmachine.jobs
   (:require [clojure.contrib.string :as string]
-            [workengine.data-input :as input-types]))
+            [workmachine.data-input :as input-types]))
 
 (def available-jobs (ref ()))
 (def assigned-jobs (ref {}))

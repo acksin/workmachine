@@ -1,5 +1,5 @@
-(ns workengine.work
-  (:require [workengine.jobs :as jobs]))
+(ns workmachine.work
+  (:require [workmachine.jobs :as jobs]))
 
 ;; TODO: Make sure that a worker only has one assignment.
 (defn assign [worker-id]

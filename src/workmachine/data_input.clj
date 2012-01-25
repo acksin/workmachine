@@ -1,4 +1,4 @@
-(ns workengine.data-input
+(ns workmachine.data-input
   (:use clj-html.core))
 
 (defn image [name]

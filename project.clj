@@ -1,4 +1,4 @@
-(defproject workengine "1.0.0-SNAPSHOT"
+(defproject workmachine "1.0.0-SNAPSHOT"
   :description "FIXME: write description"
   :dependencies [[org.clojure/clojure "1.3.0"]
                  [org.clojure/clojure-contrib "1.2.0"]
@@ -7,4 +7,4 @@
                  [resque-clojure "0.2.0"]]
   :dev-dependencies [[lein-ring "0.4.5"]
                      [swank-clojure "1.2.0"]]
-  :ring {:handler workengine.core/app})
+  :ring {:handler workmachine.core/app})

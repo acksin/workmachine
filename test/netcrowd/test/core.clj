@@ -1,5 +1,5 @@
-(ns workengine.test.core
-  (:use [workengine.core])
+(ns workmachine.test.core
+  (:use [workmachine.core])
   (:use [clojure.test]))
 
 (deftest replace-me ;; FIXME: write

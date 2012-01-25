@@ -1,4 +1,4 @@
-(ns workengine.render
+(ns workmachine.render
   (:require [clj-html.core :as clj-html]))
 
 (defn html [input-fields output-fields job-input]

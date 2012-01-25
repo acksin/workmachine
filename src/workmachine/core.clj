@@ -1,15 +1,15 @@
-(ns workengine.core
+(ns workmachine.core
   (:use compojure.core)
   (:use clj-html.core)
   (:require [compojure.route :as route]
             [compojure.handler :as handler]
             [resque-clojure.core :as resque]
-            [workengine.workflow :as workflow]
-            [workengine.jobs :as jobs]
-            [workengine.work :as work]
-            [workengine.data-input :as input-types]
-            [workengine.data-output :as output-types]
-            [workengine.blueprints.content :as content-workflow]))
+            [workmachine.workflow :as workflow]
+            [workmachine.jobs :as jobs]
+            [workmachine.work :as work]
+            [workmachine.data-input :as input-types]
+            [workmachine.data-output :as output-types]
+            [workmachine.blueprints.content :as content-workflow]))
 
 (def resque-queues {:job "work-queue"})
 

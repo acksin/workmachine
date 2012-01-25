@@ -1,4 +1,4 @@
-(ns workengine.data-output)
+(ns workmachine.data-output)
 
 (defn string [name]
   {:name name

@@ -1,9 +1,9 @@
-(ns workengine.workflow
+(ns workmachine.workflow
   (:use [clojure.tools.macro :only (name-with-attributes)])
-  (:require [workengine.jobs :as jobs]
-            [workengine.data-input :as input-types]
-            [workengine.data-output :as output-types]
-            [workengine.render :as render]))
+  (:require [workmachine.jobs :as jobs]
+            [workmachine.data-input :as input-types]
+            [workmachine.data-output :as output-types]
+            [workmachine.render :as render]))
 
 ;; (defmacro define-workflow
 ;;   "Define a workflow and post the jobs to available jobs"
