@@ -14,12 +14,15 @@
       (render/html worker-id worker-job)
       (html [:div "No work"]))))
 
-(defn submit [worker-id & submitted-work]
-  ;; Merge the submitted-work into the job.
-  ;; run-engine to
-;  (let [worker-job (jobs/job-for-worker worker-id)]
-1)
- ;   )))
+(defn submit [worker-id submitted-work]
+  ;; unassign the assignment from the worker.
+  ;; run-engine with the next instruction.
+  (let [worker-job (jobs/job-for-worker worker-id)]
+    (let [merged-job (merge (worker-job :job) submitted-work)]
+      (workflow/run-engine (worker-job :program) merged-job (worker-job :label))
+      (jobs/submit-job-from-worker worker-id)
+      "done"
+    )))
 
 (defn unassign [worker-id]
   (jobs/unassign-job-from-worker worker-id)

@@ -12,9 +12,8 @@
             [workmachine.blueprints.content :as content-workflow]))
 
 (defn run-workflow []
-  (str (content-workflow/workflow [{"topic" "http://google.com"}
-                                   {"topic" "http://yahoo.com"}
-                                   {"topic" "http://amazon.com"}])))
+  (content-workflow/workflow [{:topic "http://google.com"}])
+  "ok")
 
 (defroutes main-routes
   (GET "/" [] (str (jobs/number-of-available-jobs)))
@@ -22,10 +21,10 @@
   (GET "/available" [] (str @jobs/available-jobs))
   (GET "/workflow" [] (run-workflow))
   (GET "/assign/:worker-id" [worker-id] (work/assign worker-id))
-  (POST "/submit/:worker-id" {params :params} (str params));(work/submit worker-id))
+  (POST "/submit/:worker-id" {params :params} (work/submit
+                                               (params :worker-id)
+                                               (dissoc params :worker-id)))
   (GET "/unassign/:worker-id" [worker-id] (work/unassign worker-id))
   (route/not-found "<h1>Page not found</h1>"))
-
-;(resque/start [(resque-queues :work)])
 
 (def app (handler/site main-routes))

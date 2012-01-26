@@ -27,9 +27,12 @@
      (alter available-jobs rest)
      (alter assigned-jobs merge {worker-id first-job}))))
 
-
-;; XXX: This behavior is totally fucked. Look into it.
 (defn unassign-job-from-worker [worker-id]
   (dosync
    (alter available-jobs concat [(@assigned-jobs worker-id)])
    (alter assigned-jobs dissoc @assigned-jobs worker-id)))
+
+(defn submit-job-from-worker [worker-id]
+  (dosync
+   (alter assigned-jobs dissoc @assigned-jobs worker-id)))
+

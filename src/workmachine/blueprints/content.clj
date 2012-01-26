@@ -15,6 +15,6 @@
 
 ;;(define-workflow workflow
 (defn workflow [workflow-jobs]
-  (doall (map (fn [job]
-                (start-workflow program job))
-              workflow-jobs)))
+  (doseq [job workflow-jobs]
+    (start-workflow program job)))
+

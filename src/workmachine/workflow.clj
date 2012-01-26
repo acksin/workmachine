@@ -51,22 +51,20 @@
           (recur (rest program-acc))))))
   (instruction-label (find-label-recur program)))
 
-(defn data-input [fields]
-  ;; {:html (render/html input-fields output-fields job-input)
-  ;;  :input-fields input-fields
-  ;;  :output-fields output-fields
-  ;;  :job-input job-input
-  ;;  :job-output nil}
-  :continue)
-
 (defn run-engine [program job instruction-label]
   (if (nil? instruction-label)
     nil
-    (let [run-instruction (data-input (instruction (statement instruction-label program)))]
+    ;; TODO: Eventually.
+    ;; Should check if the data that was submitted was valid.
+    ;; Do we trust the worker?
+    ;;   No -> Create a job to review that the input was valid.
+    ;;   Yes -> Go on to the next instruction.
+    (do
       (println instruction-label)
-      (case run-instruction
-        ;;      [:goto, label] (recur program job label)
-        :continue (recur program job (continue instruction-label program))))))
+      (jobs/add-to-available-jobs {:program program
+                                   :job job
+                                   :label (continue instruction-label program)}))
+    ))
 
 (defn start-workflow [program job]
   (jobs/add-to-available-jobs {:program program
