@@ -3,8 +3,7 @@
   (:require [resque-clojure.core :as resque]
             [workmachine.jobs :as jobs]
             [workmachine.data-input :as input-types]
-            [workmachine.data-output :as output-types]
-            [workmachine.render :as render]))
+            [workmachine.data-output :as output-types]))
 
 ;; (defmacro define-workflow
 ;;   "Define a workflow and post the jobs to available jobs"

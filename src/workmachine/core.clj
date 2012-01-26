@@ -22,6 +22,7 @@
   (GET "/available" [] (str @jobs/available-jobs))
   (GET "/workflow" [] (run-workflow))
   (GET "/assign/:worker-id" [worker-id] (work/assign worker-id))
+  (POST "/submit/:worker-id" {params :params} (str params));(work/submit worker-id))
   (GET "/unassign/:worker-id" [worker-id] (work/unassign worker-id))
   (route/not-found "<h1>Page not found</h1>"))
 

@@ -22,24 +22,14 @@
             {:id name :class "input-field"}
             value])})
 
-(defn instructions [name]
+(defn instructions [name value]
   {:name name
-   :html (fn [value]
-           [:div
-            {:id name :class "input-field"}
-            value])})
+   :html [:div {:id name :class "input-field"} value]})
 
-
-(defn data-input-html-form [input-fields output-fields job-input]
-  (html
-   [:div
-    [:h2 "Instructions"]
-    ;; Job input fields
-    (map (fn [input-field]
-           (let [input-field-name (get input-field :name)]
-             ((get input-field :html) (get job-input input-field-name))))
-         input-fields)]
-   [:div
-    [:h2 "Input"]
-    ;; Worker Input fields
-    (map (fn [output-field] (get output-field :html)) output-fields)]))
+(defn parse [field]
+  (apply (case (first field)
+           :instructions instructions
+           :image image
+           :text text
+           :audio audio)
+         (rest field)))

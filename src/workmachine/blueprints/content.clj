@@ -3,15 +3,15 @@
 
 (def program
   '((:topic
-     {:input [(input-types/instructions "What topic are you interested in seeing?")]
-      :output [(output-types/string "topic")]})
+     {:input [[:instructions "topic_instruction" "What topic are you interested in seeing?"]]
+      :output [[:string "topic"]]})
     (:research
-     {:input [(input-types/instructions "Find links to the following topics. This can be in Google, Yelp or or elsewhere.")
-              (input-types/string "topic")]
-      :output [(output-types/string "info_link")]})
+     {:input [[:instructions "research_instruction" "Find links to the following topics. This can be in Google, Yelp or or elsewhere."]
+              [:text "topic"]]
+      :output [[:string "info_link"]]})
     (:write 
-     {:input [(input-types/instructions "Take the links and write something about it.")]
-      :output [(output-types/string "content")]})))
+     {:input [(:instructions "write_instruction" "Take the links and write something about it.")]
+      :output [[:string "content"]]})))
 
 ;;(define-workflow workflow
 (defn workflow [workflow-jobs]

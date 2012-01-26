@@ -13,3 +13,10 @@
 (defn text-list [name]
   {:name name
    :html [:textarea {:name name}]})
+
+(defn parse [field]
+  (apply (case (first field)
+           :string string
+           :text text
+           :text-list text-list)
+         (rest field)))
