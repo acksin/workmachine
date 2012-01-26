@@ -5,20 +5,23 @@
 (def available-jobs (ref ()))
 (def assigned-jobs (ref {}))
 
-(defn add-to-available-jobs [jobs]
+;; Available Jobs
+(defn add-to-available-jobs [job]
   (dosync
-   (ref-set available-jobs (concat jobs @available-jobs))))
+   (alter available-jobs concat [job])))
 
 (defn number-of-available-jobs []
-  (str (count @available-jobs)))
+  (count @available-jobs))
 
+;; Assigned Jobs
 (defn number-of-assigned-jobs []
-  (str (count @assigned-jobs)))
+  (count @assigned-jobs))
 
 (defn job-for-worker [worker-id]
   (@assigned-jobs worker-id))
 
 
+;; Assign available jobs to worker.
 (defn assign-job-to-worker [worker-id]
   (dosync
    (alter assigned-jobs merge {worker-id (first @available-jobs)} @assigned-jobs)

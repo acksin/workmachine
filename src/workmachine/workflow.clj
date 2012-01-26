@@ -70,5 +70,6 @@
         :continue (recur program job (continue instruction-label program))))))
 
 (defn start-workflow [program job]
-  (resque/enqueue "work" "workmachine.workflow/run-engine" program job (instruction-label (first program))))
-
+  (jobs/add-to-available-jobs {:program program
+                               :job job
+                               :label (instruction-label (first program))}))
