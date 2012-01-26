@@ -13,5 +13,14 @@
   (is (= 3 (number-of-available-jobs)) "There should be three jobs"))
 
 
-;(deftest test-assigned-jobs
+(deftest test-assigned-jobs
+  (let [worker-id "1"]
+    (is (= 3 (number-of-available-jobs)) "There should be three jobs")
+    (is (= 0 (number-of-assigned-jobs)) "Mystery assigned job.")
+    (is (nil? (job-for-worker worker-id)) "Mystery assigned to worker.")
+    (assign-job-to-worker worker-id)
+    (is (= 2 (number-of-available-jobs)) "There should be one less available jobs")
+    (is (= 1 (number-of-assigned-jobs)) "Worker was not assigned a job.")
+    (unassign-job-from-worker worker-id)
+    (is (= 3 (number-of-available-jobs)) "There should be one more available jobs")))
   
