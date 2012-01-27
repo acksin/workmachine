@@ -12,7 +12,7 @@
             [workmachine.blueprints.content :as content-workflow]))
 
 (defn run-workflow []
-  (content-workflow/workflow [{:topic "http://google.com"}])
+  (content-workflow/workflow [{:topic_instruction "What topic are you interested in seeing?"}])
   "ok")
 
 (defroutes main-routes

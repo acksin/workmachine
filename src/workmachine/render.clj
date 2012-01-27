@@ -16,7 +16,9 @@
        ;; Job input fields
        (map (fn [field]
               [:div
-               ((data-input/parse field) :html)])
+               (let [input-field (data-input/parse field)]
+                 ((input-field :html) ((worker-job :job) (keyword (input-field :name)))))
+               ])
             (instr :input))]
       [:div {:id "inputs"}
        [:h2 "Input"]

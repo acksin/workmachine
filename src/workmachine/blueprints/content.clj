@@ -3,7 +3,7 @@
 
 (def program
   '((:topic
-     {:input [[:instructions "topic_instruction" "What topic are you interested in seeing?"]]
+     {:input [[:instructions "topic_instruction"]]
       :output [[:string "topic"]]})
     (:research
      {:input [[:instructions "research_instruction" "Find links to the following topics. This can be in Google, Yelp or or elsewhere."]
