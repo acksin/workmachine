@@ -6,11 +6,11 @@
      {:input [[:instructions "topic_instruction"]]
       :output [[:string "topic"]]})
     (:research
-     {:input [[:instructions "research_instruction" "Find links to the following topics. This can be in Google, Yelp or or elsewhere."]
+     {:input [[:instructions "research_instruction"]
               [:text "topic"]]
       :output [[:string "info_link"]]})
     (:write 
-     {:input [(:instructions "write_instruction" "Take the links and write something about it.")]
+     {:input [(:instructions "write_instruction")]
       :output [[:string "content"]]})))
 
 ;;(define-workflow workflow
