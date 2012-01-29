@@ -51,9 +51,13 @@
           (recur (rest program-acc))))))
   (instruction-label (find-label-recur program)))
 
+
+(defn finish [job]
+  (jobs/add-to-finished-jobs job))
+
 (defn run-engine [program job instruction-label]
   (if (nil? instruction-label)
-    nil
+    (finish job)
     ;; TODO: Eventually.
     ;; Should check if the data that was submitted was valid.
     ;; Do we trust the worker?

@@ -4,6 +4,7 @@
 
 (def available-jobs (ref []))
 (def assigned-jobs (ref {}))
+(def finished-jobs (ref []))
 
 ;; Available Jobs
 (defn add-to-available-jobs [job]
@@ -36,3 +37,8 @@
   (dosync
    (alter assigned-jobs dissoc @assigned-jobs worker-id)))
 
+;; Finished Jobs
+
+(defn add-to-finished-jobs [job]
+  (dosync
+   (alter finished-jobs concat [job])))

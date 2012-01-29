@@ -19,8 +19,8 @@
   ;; run-engine with the next instruction.
   (let [worker-job (jobs/job-for-worker worker-id)]
     (let [merged-job (merge (worker-job :job) submitted-work)]
-      (workflow/run-engine (worker-job :program) merged-job (worker-job :label))
       (jobs/submit-job-from-worker worker-id)
+      (workflow/run-engine (worker-job :program) merged-job (worker-job :label))
       "done"
     )))
 

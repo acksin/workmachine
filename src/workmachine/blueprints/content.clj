@@ -10,7 +10,7 @@
               [:text "topic"]]
       :output [[:string "info_link"]]})
     (:write 
-     {:input [(:instructions "write_instruction")]
+     {:input [[:instructions "write_instruction"]]
       :output [[:string "content"]]})))
 
 ;;(define-workflow workflow
