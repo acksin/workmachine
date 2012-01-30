@@ -28,5 +28,7 @@
   (is (= :write (continue :research workflow-program-fixture)) "Continue did not give the label for the next instruction.")
   (is (nil? (continue :write workflow-program-fixture)) "Continue gave a label for the last instruction."))
 
-;(deftest test-workflow
-  
+;; (deftest test-workflow
+;;   (workflow-fixture)
+;;   (let [worker-id "1"]
+;;     (is (= 

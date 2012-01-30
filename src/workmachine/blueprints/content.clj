@@ -11,9 +11,8 @@
       :output [[:string "info_link"]]})
     (:write 
      {:input [[:instructions "write_instruction"]]
-      :output [[:string "content"]]})))
+      :output [[:text "content"]]})))
 
-;;(define-workflow workflow
 (defn workflow [workflow-jobs]
   (doseq [job workflow-jobs]
     (start-workflow program job)))
