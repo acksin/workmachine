@@ -16,4 +16,3 @@
 (defn workflow [workflow-jobs]
   (doseq [job workflow-jobs]
     (start-workflow program job)))
-
