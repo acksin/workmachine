@@ -29,6 +29,7 @@
                                                (params :worker-id)
                                                (dissoc params :worker-id)))
   (GET "/unassign/:worker-id" [worker-id] (work/unassign worker-id))
+  (GET "/mturk/serve" (work/assign "1")) ;; Obviously this should not be 1.
   (route/not-found "<h1>Page not found</h1>"))
 
 (def app (handler/site main-routes))
