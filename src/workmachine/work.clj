@@ -16,12 +16,12 @@
 (defn submit [worker-id submitted-work]
   ;; unassign the assignment from the worker.
   ;; run-engine with the next instruction.
-  (let [worker-job (jobs/job-for-worker worker-id)]
-    (let [merged-job (merge (worker-job :job) submitted-work)]
-      (jobs/submit-job-from-worker worker-id)
-      (workflow/run-engine (worker-job :program) merged-job (worker-job :label))
-      "done"
-    )))
+  (let [worker-job (jobs/job-for-worker worker-id)
+        merged-job (merge worker-job {:job (merge (worker-job :job) submitted-work)})]
+    (println merged-job)
+    (jobs/submit-job-from-worker worker-id)
+    (workflow/run-engine merged-job)
+    "done"))
 
 (defn unassign [worker-id]
   (jobs/unassign-job-from-worker worker-id)

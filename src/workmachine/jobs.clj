@@ -9,7 +9,9 @@
 (defstruct job
   :program
   :job
-  :label)
+  :label
+  :reviews
+  :meta)
 
 ;; Available Jobs
 (defn add-to-available-jobs [job]

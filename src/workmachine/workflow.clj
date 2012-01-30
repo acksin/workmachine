@@ -33,20 +33,28 @@
   (println "finished")
   (jobs/add-to-finished-jobs job))
 
-(defn run-engine [program job instruction-label]
-    ;; TODO: Eventually.
-    ;; Should check if the data that was submitted was valid.
-    ;; Do we trust the worker?
-    ;;   No -> Create a job to review that the input was valid.
-    ;;   Yes -> Go on to the next instruction.
-  (println instruction-label)
-  (let [next-instruction-label (continue instruction-label program)]
+(defn run-engine [job]
+  ;; TODO: Eventually.
+  ;;
+  ;; Workers:
+  ;; Each job should have the worker that performed the job.
+  ;; - We should keep a reputation map for each worker such that we know their reputation at any given point in time.
+  ;;
+  ;; Review:
+  ;; Check if there is a review associated with the input.
+  ;;  - if not then create a review job.
+  ;;  - 
+  ;;
+  ;; Should check if the data that was submitted was valid.
+  ;; Do we trust the worker?
+  ;;   No -> Create a job to review that the input was valid.
+  ;;   Yes -> Go on to the next instruction.
+  (println (job :label))
+
+  (let [next-instruction-label (continue (job :label) (job :program))]
     (if (nil? next-instruction-label)
       (finish job)
-      (jobs/add-to-available-jobs (struct-map jobs/job
-                                    :program program
-                                    :job job
-                                    :label next-instruction-label)))))
+      (jobs/add-to-available-jobs (merge job {:label next-instruction-label})))))
 
 (defn start-workflow [program job]
   (jobs/add-to-available-jobs (struct-map jobs/job
