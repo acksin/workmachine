@@ -22,7 +22,7 @@
                 (worker-job :label)
                 (worker-job :program)))]
     (html-template
-     [:form {:action (str "/submit/" worker-id) :method "POST"}
+     [:form {:action (str "/work/submit/" worker-id) :method "POST"}
       [:div
        [:h2 "Instructions"]
        ;; Job input fields

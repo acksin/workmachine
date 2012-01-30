@@ -32,9 +32,9 @@
                                                (dissoc params :worker-id)))
   (GET "/work/unassign/:worker-id" [worker-id] (work/unassign worker-id))
   
-  (GET "/mturk/assign" (work/assign "1")) ;; Obviously this should not be 1.
-  (POST "/mturk/submit" (work/assign "1")) ;; Obviously this should not be 1.
-  (POST "/mturk/unassign" (work/assign "1")) ;; Obviously this should not be 1.  
+  (GET "/mturk/assign" [] (work/assign "1")) ;; Obviously this should not be 1.
+  (POST "/mturk/submit" [] (work/assign "1")) ;; Obviously this should not be 1.
+  (POST "/mturk/unassign" [] (work/assign "1")) ;; Obviously this should not be 1.  
 
   (GET "/workflow" [] (run-workflow))
   ;; :inputs => [{:type => "string", :name => "name_tag"}]
