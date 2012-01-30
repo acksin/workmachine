@@ -21,21 +21,27 @@
 
 (defroutes main-routes
   (GET "/" [] (str (jobs/number-of-available-jobs)))
-  (GET "/assignments" [] (str @jobs/assigned-jobs))
-  (GET "/available" [] (str @jobs/available-jobs))
-  (GET "/finished" [] (str @jobs/finished-jobs))
-  (GET "/workflow" [] (run-workflow))
-  (GET "/assign/:worker-id" [worker-id] (work/assign worker-id))
-  (POST "/submit/:worker-id" {params :params} (work/submit
+
+  (GET "/jobs/assigned" [] (str @jobs/assigned-jobs))
+  (GET "/jobs/available" [] (str @jobs/available-jobs))
+  (GET "/jobs/finished" [] (str @jobs/finished-jobs))
+  
+  (GET "/work/assign/:worker-id" [worker-id] (work/assign worker-id))
+  (POST "/work/submit/:worker-id" {params :params} (work/submit
                                                (params :worker-id)
                                                (dissoc params :worker-id)))
-  (GET "/unassign/:worker-id" [worker-id] (work/unassign worker-id))
-  (GET "/mturk/serve" (work/assign "1")) ;; Obviously this should not be 1.
+  (GET "/work/unassign/:worker-id" [worker-id] (work/unassign worker-id))
+  
+  (GET "/mturk/assign" (work/assign "1")) ;; Obviously this should not be 1.
+  (POST "/mturk/submit" (work/assign "1")) ;; Obviously this should not be 1.
+  (POST "/mturk/unassign" (work/assign "1")) ;; Obviously this should not be 1.  
 
+  (GET "/workflow" [] (run-workflow))
   ;; :inputs => [{:type => "string", :name => "name_tag"}]
   ;; :outputs => [{:type => "text", :name => "out_name_tag"}]
   ;; :jobs => [{"name_tag" => "foo"}, {"name_tag" => "bar"}]
   (POST "/workflow/extraction" {params :params} (extraction-workflow/parse-and-run params))
+  
   (route/not-found "<h1>Page not found</h1>"))
 
 (def app (handler/site main-routes))

@@ -5,35 +5,12 @@
             [workmachine.data-input :as input-types]
             [workmachine.data-output :as output-types]))
 
-;; (defmacro define-workflow
-;;   "Define a workflow and post the jobs to available jobs"
-;;   [name program]
-;;   `(defn ~name work-jobs#
-;;      (map (fn [job#]
-;;             (run-engine ~program job#))
-;;             work-jobs#)))
-
-;; (defmacro define-instruction
-;;   "Define the instructions which will be returned."
-;;   [name args instruction]
-;;   `(defn ~name [~@args]
-;;      (fn [job-input#]
-;;        (instruction job-input#))))
-       
-       
 
 (defn instruction-label [statement]
   (first statement))
 
 (defn instruction-label? [label statement]
   (= (instruction-label statement) label))
-
-;; TODO: This is if we want to be be able to redo certain tasks.
-;; (defn verify? [statement]
-;;   (let [statement-metadata (first (rest statement))]
-;;     (and (instance? clojure.lang.PersistentArrayMap statement-metadata)
-;;          (contains? statement-metadata :verify))))
-
 
 (defn instruction [statement]
   (last statement))
@@ -65,12 +42,14 @@
     ;;   Yes -> Go on to the next instruction.
     (do
       (println instruction-label)
-      (jobs/add-to-available-jobs {:program program
-                                   :job job
-                                   :label (continue instruction-label program)}))
+      (jobs/add-to-available-jobs (struct-map jobs/job
+                                    :program program
+                                    :job job
+                                    :label (continue instruction-label program))))
     ))
 
 (defn start-workflow [program job]
-  (jobs/add-to-available-jobs {:program program
-                               :job job
-                               :label (instruction-label (first program))}))
+  (jobs/add-to-available-jobs (struct-map jobs/job
+                                :program program
+                                :job job
+                                :label (instruction-label (first program)))))

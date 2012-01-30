@@ -6,6 +6,11 @@
 (def assigned-jobs (ref {}))
 (def finished-jobs (ref []))
 
+(defstruct job
+  :program
+  :job
+  :label)
+
 ;; Available Jobs
 (defn add-to-available-jobs [job]
   (dosync
