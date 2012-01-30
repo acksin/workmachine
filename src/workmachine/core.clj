@@ -24,7 +24,9 @@
 
   (GET "/jobs/assigned" [] (str @jobs/assigned-jobs))
   (GET "/jobs/available" [] (str @jobs/available-jobs))
-  (GET "/jobs/finished" [] (str @jobs/finished-jobs))
+  (GET "/jobs/finished" [] (fn [x]
+                             (println @jobs/finished-jobs)
+                             (str @jobs/finished-jobs)))
   
   (GET "/work/assign/:worker-id" [worker-id] (work/assign worker-id))
   (POST "/work/submit/:worker-id" {params :params} (work/submit

@@ -30,23 +30,23 @@
 
 
 (defn finish [job]
+  (println "finished")
   (jobs/add-to-finished-jobs job))
 
 (defn run-engine [program job instruction-label]
-  (if (nil? instruction-label)
-    (finish job)
     ;; TODO: Eventually.
     ;; Should check if the data that was submitted was valid.
     ;; Do we trust the worker?
     ;;   No -> Create a job to review that the input was valid.
     ;;   Yes -> Go on to the next instruction.
-    (do
-      (println instruction-label)
+  (println instruction-label)
+  (let [next-instruction-label (continue instruction-label program)]
+    (if (nil? next-instruction-label)
+      (finish job)
       (jobs/add-to-available-jobs (struct-map jobs/job
                                     :program program
                                     :job job
-                                    :label (continue instruction-label program))))
-    ))
+                                    :label next-instruction-label)))))
 
 (defn start-workflow [program job]
   (jobs/add-to-available-jobs (struct-map jobs/job
