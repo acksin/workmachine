@@ -4,7 +4,6 @@
             [workmachine.workflow :as workflow]
             [workmachine.render :as render]))
 
-;; TODO: Make sure that a worker only has one assignment.
 (defn assign [worker-id]
   (let [worker-job (or (jobs/job-for-worker worker-id)
                        (do
