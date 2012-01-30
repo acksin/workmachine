@@ -4,12 +4,24 @@
             [workmachine.data-input :as data-input]
             [workmachine.data-output :as data-output]))
 
+(defn html-template [form-code]
+  (clj-html/html
+   [:html
+    [:head
+     [:title "WorkMachine Worker"]
+     [:link {:rel "stylesheet" :href "http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css"}]]
+    [:body
+     [:div {:class "container"}
+      [:div {:class "row"}
+       [:div {:class "span16"}
+        form-code]]]]]))
+     
 (defn html [worker-id worker-job]
   (let [instr (workflow/instruction
                (workflow/statement
                 (worker-job :label)
                 (worker-job :program)))]
-    (clj-html/html
+    (html-template
      [:form {:action (str "/submit/" worker-id) :method "POST"}
       [:div
        [:h2 "Instructions"]
@@ -27,6 +39,6 @@
               [:div
                ((data-output/parse field) :html)])
             (instr :output))]
-      [:input {:type "submit" :value "Submit"}]])))
+      [:input {:type "submit" :value "Submit" :class "btn"}]])))
 
 

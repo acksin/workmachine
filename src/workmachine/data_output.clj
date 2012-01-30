@@ -8,7 +8,7 @@
 
 (defn text [name]
   {:name name
-   :html [:textarea {:name name}]})
+   :html [:textarea {:name name} ""]})
 
 (defn text-list [name]
   {:name name
