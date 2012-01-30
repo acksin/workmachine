@@ -46,4 +46,5 @@
 
 (defn add-to-finished-jobs [job]
   (dosync
+   ;; XXX: This should actually be stored in a datastore somewhere. 
    (alter finished-jobs concat [job])))

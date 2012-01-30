@@ -1,13 +1,6 @@
 (ns workmachine.data-input
   (:use clj-html.core))
 
-;; (defmacro define-field
-;;   "Define a field which can be used for input or output."
-;;   [name html]
-;;   `(defn ~name [name# value#]
-;;      {:name ~field-name
-;;       :html
-      
 (defn image [name]
   {:name name
    :html (fn [value]
@@ -34,6 +27,12 @@
    :html (fn [value]
            [:div {:id name :class "input-field"}
             value])})
+
+(defn identifier [name]
+  {:name name
+   :html (fn [value]
+           ;; No-op
+           )})
 
 (defn parse [field]
   (apply (case (first field)
