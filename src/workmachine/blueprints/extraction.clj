@@ -1,7 +1,7 @@
 (ns workmachine.blueprints.extraction
   (:use workmachine.workflow))
 
-(def program [inputs outputs]
+(defn program [inputs outputs]
   '((:input
      {:input [inputs]
       :output [outputs]})))
