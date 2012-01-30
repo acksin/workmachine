@@ -8,6 +8,12 @@
               (sh "tesseract" (str value ".tif") (str "/tmp/" value ".ocr"))
               (sh "cat" (str "/tmp/" value ".ocr.txt")))})
 
+(defn ocr-train [name]
+  {:name name
+   :execute (fn [value]
+              ;; http://code.google.com/p/tesseract-ocr/wiki/TrainingTesseract3
+              )})
+
 (defn parse [field]
   (apply (case (first field)
            :execute string
