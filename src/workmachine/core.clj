@@ -12,7 +12,7 @@
             [workmachine.blueprints.extraction :as extraction-workflow]
             [workmachine.blueprints.content :as content-workflow]))
 
-(defn run-workflow []
+(defn- run-workflow []
   (content-workflow/workflow
    [{:topic_instruction "What topic are you interested in seeing?"
      :research_instrction "Find links to the following topics."

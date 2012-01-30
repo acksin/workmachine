@@ -4,7 +4,7 @@
             [workmachine.data-input :as data-input]
             [workmachine.data-output :as data-output]))
 
-(defn html-template [form-code]
+(defn- html-template [form-code]
   (clj-html/html
    [:html
     [:head
