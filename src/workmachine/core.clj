@@ -9,6 +9,7 @@
             [workmachine.work :as work]
             [workmachine.data-input :as input-types]
             [workmachine.data-output :as output-types]
+            [workmachine.blueprints.extraction :as extraction-workflow]
             [workmachine.blueprints.content :as content-workflow]))
 
 (defn run-workflow []
@@ -30,6 +31,11 @@
                                                (dissoc params :worker-id)))
   (GET "/unassign/:worker-id" [worker-id] (work/unassign worker-id))
   (GET "/mturk/serve" (work/assign "1")) ;; Obviously this should not be 1.
+
+  ;; :inputs => [{:type => "string", :name => "name_tag"}]
+  ;; :outputs => [{:type => "text", :name => "out_name_tag"}]
+  ;; :jobs => [{"name_tag" => "foo"}, {"name_tag" => "bar"}]
+  (POST "/workflow/extraction" {params :params} (extraction-workflow/parse-and-run params))
   (route/not-found "<h1>Page not found</h1>"))
 
 (def app (handler/site main-routes))

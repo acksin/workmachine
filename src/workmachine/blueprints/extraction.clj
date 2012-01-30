@@ -9,3 +9,7 @@
 (defn workflow [inputs outputs workflow-jobs]
   (doseq [job workflow-jobs]
     (start-workflow (program inputs outputs) job)))
+
+(defn parse-and-run [params]
+  
+  )
