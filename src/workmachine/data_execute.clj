@@ -5,12 +5,12 @@
   (fn [value]
     (sh "convert" (str value "-type Grayscale " value ".tif"))
     (sh "tesseract" (str value ".tif") (str "/tmp/" value ".ocr"))
-    (sh "cat" (str "/tmp/" value ".ocr.txt")))})
+    (sh "cat" (str "/tmp/" value ".ocr.txt"))))
 
 (defn image-ocr-train [image-field training-text-field]
   (fn [value]
     ;; http://code.google.com/p/tesseract-ocr/wiki/TrainingTesseract3
-    )})
+    ))
 
 (defn audio-transcribe [audio-field text-field]
   ;; TODO
