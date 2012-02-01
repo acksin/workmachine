@@ -28,6 +28,12 @@
           (recur (rest program-acc))))))
   (instruction-label (find-label-recur program)))
 
+(defn contains-review? [label job]
+  (contains? (job :reviews) label))
+
+(defn review? [job]
+  (job :is-review))
+
 
 (defn finish [job]
   (println "finished")
@@ -51,13 +57,25 @@
   ;;   Yes -> Go on to the next instruction.
   (println (job :label))
 
-  (let [next-instruction-label (continue (job :label) (job :program))]
-    (if (nil? next-instruction-label)
-      (finish job)
-      (jobs/add-to-available-jobs (merge job {:label next-instruction-label})))))
+  ;; See if the job label has a review
+  (if (and (not (contains-review? (job :label) job))
+           (not (review? job)))
+    (jobs/add-to-available-jobs (merge job {:is-review true})) ; Let's do a review
+    
+    ;; Let's actually do the damn job
+    (if (review? job)
+      '(noop) ;; This is a review job.
+
+      ;; This is the actual job.
+      (let [next-instruction-label (continue (job :label) (job :program))]
+        (if (nil? next-instruction-label)
+          (finish job)
+          (jobs/add-to-available-jobs (merge job {:label next-instruction-label}))))))
 
 (defn start-workflow [program job]
   (jobs/add-to-available-jobs (struct-map jobs/job
                                 :program program
                                 :job job
-                                :label (instruction-label (first program)))))
+                                :label (instruction-label (first program))
+                                :is-review false
+                                :reviews #{})))
