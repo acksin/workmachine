@@ -10,8 +10,10 @@
   :program
   :job
   :label
+  :is-review
   :reviews
-  :meta)
+  :meta
+  :callback)
 
 ;; Available Jobs
 (defn add-to-available-jobs [job]

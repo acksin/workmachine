@@ -28,11 +28,11 @@
                              (println @jobs/finished-jobs)
                              (str @jobs/finished-jobs)))
   
-  (GET "/work/assign/:worker-id" [worker-id] (work/assign worker-id))
-  (POST "/work/submit/:worker-id" {params :params} (work/submit
+  (GET "/worker/:worker-id/assign" [worker-id] (work/assign worker-id))
+  (POST "/worker/:worker-id/submit" {params :params} (work/submit
                                                (params :worker-id)
                                                (dissoc params :worker-id)))
-  (GET "/work/unassign/:worker-id" [worker-id] (work/unassign worker-id))
+  (GET "/worker/:worker-id/unassign" [worker-id] (work/unassign worker-id))
   
   (GET "/mturk/assign" [] (work/assign "1")) ;; Obviously this should not be 1.
   (POST "/mturk/submit" [] (work/assign "1")) ;; Obviously this should not be 1.
