@@ -12,7 +12,7 @@
            :name name}])
 
 (define-output text
-  [:textarea {:name name} ""]}
+  [:textarea {:name name} ""])
 
 (define-output text-list
   [:textarea {:name name}])
