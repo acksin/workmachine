@@ -1,18 +1,21 @@
 (ns workmachine.data-output)
 
-(defn string [name]
-  {:name name
-   :html [:input {:type "text"
-                  :value ""
-                  :name name}]})
+(defmacro define-output
+  [input-name html]
+  `(defn ~input-name [name#]
+     {:name name#
+      :html ~html}))
 
-(defn text [name]
-  {:name name
-   :html [:textarea {:name name} ""]})
+(define-output string
+  [:input {:type "text"
+           :value ""
+           :name name}])
 
-(defn text-list [name]
-  {:name name
-   :html [:textarea {:name name}]})
+(define-output text
+  [:textarea {:name name} ""]}
+
+(define-output text-list
+  [:textarea {:name name}])
 
 (defn parse [field]
   (apply (case (first field)
