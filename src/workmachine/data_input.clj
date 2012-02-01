@@ -1,38 +1,40 @@
 (ns workmachine.data-input
   (:use clj-html.core))
 
-(defn image [name]
-  {:name name
-   :html (fn [value]
-           [:img {:id name
-                  :src value
-                  :class "input-field"}])})
+(defmacro define-input
+  [input-name html]
+  `(defn ~input-name [name#]
+     {:name name#
+      :html ~html}))
+      
 
-(defn audio [name]
-  {:name name
-   :html (fn [value]
-           [:audio {:id name
-                    :src value
-                    :class "input-field"}])})
+(define-input image
+  (fn [value]
+    [:img {:id name
+           :src value
+           :class "input-field"}]))
 
-(defn text [name]
-  {:name name
-   :html (fn [value]
-           [:span
-            {:id name :class "input-field"}
-            value])})
+(define-input audio
+  (fn [value]
+    [:audio {:id name
+             :src value
+             :class "input-field"}]))
 
-(defn instructions [name]
-  {:name name
-   :html (fn [value]
-           [:div {:id name :class "input-field"}
-            value])})
+(define-input text
+  (fn [value]
+    [:span
+     {:id name :class "input-field"}
+     value]))
 
-(defn identifier [name]
-  {:name name
-   :html (fn [value]
-           ;; No-op
-           )})
+(define-input instructions
+  (fn [value]
+    [:div {:id name :class "input-field"}
+     value]))
+
+(define-input identifier
+  (fn [value]
+    ;; No-op
+    ))
 
 (defn parse [field]
   (apply (case (first field)
