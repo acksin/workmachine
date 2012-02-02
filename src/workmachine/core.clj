@@ -19,6 +19,9 @@
      :write_instruction "Take the links about and come up with a paragraph or two about the topic."}])
   "ok")
 
+(defn- results []
+  '(results))
+
 (defroutes main-routes
   (GET "/" [] (str (jobs/number-of-available-jobs)))
 
@@ -38,11 +41,11 @@
   (POST "/mturk/submit" [] (work/assign "1")) ;; Obviously this should not be 1.
   (POST "/mturk/unassign" [] (work/assign "1")) ;; Obviously this should not be 1.  
 
-  (GET "/workflow" [] (run-workflow))
+  ;; :workflow => '(pass in the workflow that the user wants to run.
   ;; :inputs => [{:type => "string", :name => "name_tag"}]
-  ;; :outputs => [{:type => "text", :name => "out_name_tag"}]
   ;; :jobs => [{"name_tag" => "foo"}, {"name_tag" => "bar"}]
-  (POST "/workflow/extraction" {params :params} (extraction-workflow/parse-and-run params))
+  (GET "/run" [] (run-workflow))
+  (GET "/results" [] (results))
   
   (route/not-found "<h1>Page not found</h1>"))
 
