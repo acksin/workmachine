@@ -1,6 +1,3 @@
-(ns workmachine.blueprints.content
-  (:use workmachine.workflow))
-
 (def program
   '((:topic
      {:input [[:instructions "topic_instruction"]]

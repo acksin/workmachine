@@ -1,16 +1,15 @@
 (ns workmachine.core
   (:use compojure.core)
   (:use clj-html.core)
+  (:use ring.middleware.json-params)
   (:require [compojure.route :as route]
             [compojure.handler :as handler]
-            [resque-clojure.core :as resque]
+            [clj-json.core :as json]
             [workmachine.workflow :as workflow]
             [workmachine.jobs :as jobs]
             [workmachine.work :as work]
             [workmachine.data-input :as input-types]
-            [workmachine.data-output :as output-types]
-            [workmachine.blueprints.extraction :as extraction-workflow]
-            [workmachine.blueprints.content :as content-workflow]))
+            [workmachine.data-output :as output-types]))
 
 (defn- run-workflow []
   (content-workflow/workflow
@@ -44,7 +43,7 @@
   ;; :workflow => '(pass in the workflow that the user wants to run.
   ;; :inputs => [{:type => "string", :name => "name_tag"}]
   ;; :jobs => [{"name_tag" => "foo"}, {"name_tag" => "bar"}]
-  (GET "/run" [] (run-workflow))
+  (PUT "/run" [workflow jobs] (run-workflow))
   (GET "/results" [] (results))
   
   (route/not-found "<h1>Page not found</h1>"))

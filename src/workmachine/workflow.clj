@@ -1,7 +1,6 @@
 (ns workmachine.workflow
   (:use [clojure.tools.macro :only (name-with-attributes)])
-  (:require [resque-clojure.core :as resque]
-            [workmachine.jobs :as jobs]
+  (:require [workmachine.jobs :as jobs]
             [workmachine.data-input :as input-types]
             [workmachine.data-output :as output-types]))
 
