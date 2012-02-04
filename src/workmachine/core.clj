@@ -11,11 +11,16 @@
             [workmachine.data-input :as input-types]
             [workmachine.data-output :as output-types]))
 
-(defn- run-workflow []
-  (content-workflow/workflow
-   [{:topic_instruction "What topic are you interested in seeing?"
-     :research_instrction "Find links to the following topics."
-     :write_instruction "Take the links about and come up with a paragraph or two about the topic."}])
+(defn- run-workflow [program jobs]
+  ;; (content-workflow/workflow
+  ;;  [{:topic_instruction "What topic are you interested in seeing?"
+  ;;    :research_instrction "Find links to the following topics."
+  ;;    :write_instruction "Take the links about and come up with a paragraph or two about the topic."}])
+
+  ;; (defn workflow [workflow-jobs]
+  ;;   (doseq [job workflow-jobs]
+  ;;     (start-workflow program job)))
+
   "ok")
 
 (defn- results []
@@ -40,10 +45,9 @@
   (POST "/mturk/submit" [] (work/assign "1")) ;; Obviously this should not be 1.
   (POST "/mturk/unassign" [] (work/assign "1")) ;; Obviously this should not be 1.  
 
-  ;; :workflow => '(pass in the workflow that the user wants to run.
-  ;; :inputs => [{:type => "string", :name => "name_tag"}]
+  ;; :program => '(pass in the workflow that the user wants to run.
   ;; :jobs => [{"name_tag" => "foo"}, {"name_tag" => "bar"}]
-  (PUT "/run" [workflow jobs] (run-workflow))
+  (PUT "/run" [program jobs] (run-workflow program jobs))
   (GET "/results" [] (results))
   
   (route/not-found "<h1>Page not found</h1>"))

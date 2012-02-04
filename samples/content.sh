@@ -1,5 +1,8 @@
-(def program
-  '((:topic
+curl -X PUT -H "Content-Type: application/json" \
+    -d '{"program": "hacker"}' \
+http://localhost:8080/
+
+'((:topic
      {:input [[:instructions "topic_instruction"]]
       :output [[:string "topic"]]})
     (:research
@@ -10,8 +13,4 @@
      {:input [[:instructions "write_instruction"]
               [:text "topic"]
               [:text "info_link"]]
-      :output [[:text "content"]]})))
-
-(defn workflow [workflow-jobs]
-  (doseq [job workflow-jobs]
-    (start-workflow program job)))
+      :output [[:text "content"]]})))'
