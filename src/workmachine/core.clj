@@ -12,15 +12,7 @@
             [workmachine.data-output :as output-types]))
 
 (defn- run-workflow [program jobs]
-  ;; (content-workflow/workflow
-  ;;  [{:topic_instruction "What topic are you interested in seeing?"
-  ;;    :research_instrction "Find links to the following topics."
-  ;;    :write_instruction "Take the links about and come up with a paragraph or two about the topic."}])
-
-  ;; (defn workflow [workflow-jobs]
-  ;;   (doseq [job workflow-jobs]
-  ;;     (start-workflow program job)))
-
+  (doseq [job jobs] (workflow/start-workflow (read-string program) job))
   "ok")
 
 (defn- results []
@@ -52,4 +44,4 @@
   
   (route/not-found "<h1>Page not found</h1>"))
 
-(def app (handler/site main-routes))
+(def app (-> main-routes wrap-json-params))
