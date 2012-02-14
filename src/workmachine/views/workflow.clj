@@ -1,23 +1,27 @@
 (ns workmachine.views.workflow
   (:require [workmachine.views.common :as common]
+            [workmachine.engine.workflow :as workflow]
             [workmachine.models.jobs :as jobs])
   (:use [noir.core :only [defpage]]
         [hiccup.core :only [html]]))
 
 (defpage "/" []
   (common/layout
-   [:p
-    [:strong "Number of available jobs"]
-    (str (jobs/number-of-available-jobs))]
-   [:p
-    [:strong "assigned jobs"]
-    (prn @jobs/assigned-jobs)]
-   [:p
-    [:strong "available jobs"]
-    (prn @jobs/available-jobs)]
-   [:p
-    [:strong "finished jobs"]
-    (str @jobs/finished-jobs)]))
+   [:div
+    [:h2 "Stats"]
+    [:table.table-bordered.table
+     [:tr
+      [:td "Number of Available Jobs:"]
+      [:td (str (jobs/number-of-available-jobs))]]
+     [:tr
+      [:td "Assigned Jobs:"]
+      [:td (prn @jobs/assigned-jobs)]]
+     [:tr
+      [:td "Available Jobs:"]
+      [:td (prn @jobs/available-jobs)]]
+     [:tr
+      [:td "Finished Jobs:"]
+      [:td (str @jobs/finished-jobs)]]]]))
 
 
 (defpage [:post "/run"] [program jobs]

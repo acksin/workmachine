@@ -1,10 +1,12 @@
-(ns workmachine.views.work
+(ns workmachine.views.worker
   (:require [workmachine.views.common :as common]
-            [workmachine.jobs :as jobs]
-            [workmachine.workflow :as workflow]
-            [workmachine.render :as render])
-  (:use [noir.core :only [defpage]]
-        [hiccup.core :only [html]]))
+            [workmachine.models.jobs :as jobs]
+            [workmachine.engine.workflow :as workflow]
+            [workmachine.engine.data-input :as data-input]
+            [workmachine.engine.data-output :as data-output])
+  (:use [noir.core :only [defpartial defpage]]
+        [hiccup.core :only [html]]
+        [hiccup.page-helpers :only [include-css html5]]))
 
 (defpartial worker-layout [worker-id worker-job]
   (html5
