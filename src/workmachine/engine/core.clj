@@ -36,10 +36,6 @@
          ;(dissoc params :worker-id)))
   (GET "/worker/:worker-id/unassign" [worker-id] (work/unassign worker-id))
   
-  (GET "/mturk/assign" [] (work/assign "1")) ;; Obviously this should not be 1.
-  (POST "/mturk/submit" [] (work/assign "1")) ;; Obviously this should not be 1.
-  (POST "/mturk/unassign" [] (work/assign "1")) ;; Obviously this should not be 1.  
-
   ;; :program => '(pass in the workflow that the user wants to run.
   ;; :jobs => [{"name_tag" => "foo"}, {"name_tag" => "bar"}]
   (PUT "/run" [program jobs] (run-workflow program jobs))
