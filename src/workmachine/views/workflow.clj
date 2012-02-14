@@ -1,5 +1,6 @@
 (ns workmachine.views.workflow
-  (:require [workmachine.views.common :as common])
+  (:require [workmachine.views.common :as common]
+            [workmachine.models.jobs :as jobs])
   (:use [noir.core :only [defpage]]
         [hiccup.core :only [html]]))
 

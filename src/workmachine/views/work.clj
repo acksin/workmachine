@@ -6,13 +6,49 @@
   (:use [noir.core :only [defpage]]
         [hiccup.core :only [html]]))
 
+(defpartial worker-layout [worker-id worker-job]
+  (html5
+   [:head
+    [:title "WorkMachine Worker"]
+    (include-css "/bootstrap/css/bootstrap.css")]
+   [:body
+    [:div.container
+     [:div.row
+      [:div.span16
+       ;; TODO: Probably want to move this to the top.
+       (let [instr (workflow/instruction
+                    (workflow/statement
+                     (worker-job :label)
+                     (worker-job :program)))]
+         [:form {:action (str "/worker/" worker-id "/submit") :method "POST"}
+          [:div
+           [:h2 "Instructions"]
+           ;; Job input fields
+           (map (fn [field]
+                  [:div
+                   (let [input-field (data-input/parse field)]
+                     ((input-field :html) ((worker-job :job) (input-field :name))))
+                   ])
+                (instr :input))]
+          [:div {:id "inputs"}
+           [:h2 "Input"]
+           ;; Worker Input fields
+           (map (fn [field]
+                  [:div
+                   ((data-output/parse field) :html)])
+                (instr :output))]
+          [:input {:type "submit" :value "Submit" :class "btn"}]])]]]]))
+
+
+
+
 (defpage "/worker/:worker-id/assign" {worker-id :worker-id}
   (let [worker-job (or (jobs/job-for-worker worker-id)
                        (do
                          (jobs/assign-job-to-worker worker-id)
                          (jobs/job-for-worker worker-id)))]
     (if worker-job
-      (render/html worker-id worker-job)
+      (worker-layout worker-id worker-job)
       (html [:div "No work"]))))
 
 (defpage [:post "/worker/:worker-id/submit"]

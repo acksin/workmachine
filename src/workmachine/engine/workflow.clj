@@ -1,9 +1,8 @@
-(ns workmachine.workflow
+(ns workmachine.engine.workflow
   (:use [clojure.tools.macro :only (name-with-attributes)])
-  (:require [workmachine.jobs :as jobs]
-            [workmachine.data-input :as input-types]
-            [workmachine.data-output :as output-types]))
-
+  (:require [workmachine.models.jobs :as jobs]
+            [workmachine.engine.data-input :as input-types]
+            [workmachine.engine.data-output :as output-types]))
 
 (defn instruction-label [statement]
   (first statement))

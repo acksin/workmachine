@@ -1,4 +1,4 @@
-(ns workmachine.data-output)
+(ns workmachine.engine.data-output)
 
 (defmacro define-output
   [input-name html]

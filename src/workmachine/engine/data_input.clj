@@ -1,5 +1,4 @@
-(ns workmachine.data-input
-  (:use clj-html.core))
+(ns workmachine.engine.data-input)
 
 (defmacro define-input
   [input-name html]
