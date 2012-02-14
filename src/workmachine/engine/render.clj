@@ -8,8 +8,8 @@
   (clj-html/html
    [:html
     [:head
-     [:title "WorkMachine Worker"]
-     [:link {:rel "stylesheet" :href "http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css"}]]
+     [:title "WorkMachine Worker"]]
+;;     [:link {:rel "stylesheet" :href "http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css"}]]
     [:body
      [:div {:class "container"}
       [:div {:class "row"}
@@ -29,7 +29,7 @@
        (map (fn [field]
               [:div
                (let [input-field (data-input/parse field)]
-                 ((input-field :html) ((worker-job :job) (keyword (input-field :name)))))
+                 ((input-field :html) ((worker-job :job) (input-field :name))))
                ])
             (instr :input))]
       [:div {:id "inputs"}

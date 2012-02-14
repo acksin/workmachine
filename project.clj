@@ -1,11 +1,6 @@
-(defproject workmachine "1.0.0-SNAPSHOT"
-  :description "FIXME: write description"
-  :dependencies [[org.clojure/clojure "1.3.0"]
-                 [org.clojure/clojure-contrib "1.2.0"]
-                 [ring-json-params "0.1.3"]
-                 [compojure "1.0.1"]
-                 [clj-html "0.1.0"]
-                 [clj-json "0.5.0"]]
-  :dev-dependencies [[lein-ring "0.4.5"]
-                     [swank-clojure "1.2.0"]]
-  :ring {:handler workmachine.core/app})
+(defproject workmachine "0.1.0-SNAPSHOT"
+            :description "FIXME: write this!"
+            :dependencies [[org.clojure/clojure "1.3.0"]
+                           [noir "1.2.1"]]
+            :main workmachine.server)
+
