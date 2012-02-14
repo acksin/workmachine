@@ -44,7 +44,7 @@
 
 
 
-(defpage "/worker/:worker-id/assign" {worker-id :worker-id}
+(defpage "/worker/:worker-id/assign" {:keys [worker-id]}
   (let [worker-job (or (jobs/job-for-worker worker-id)
                        (do
                          (jobs/assign-job-to-worker worker-id)
@@ -54,7 +54,7 @@
       (html [:div "No work"]))))
 
 (defpage [:post "/worker/:worker-id/submit"]
-  {worker-id :worker-id submitted-work :submitted-work}
+  {:keys [worker-id submitted-work]}
   ;; unassign the assignment from the worker.
   ;; run-engine with the next instruction.
   (let [worker-job (jobs/job-for-worker worker-id)
@@ -64,6 +64,6 @@
     (workflow/run-engine merged-job)
     "done"))
 
-(defpage "/worker/:worker-id/unassign" {worker-id :worker-id} 
+(defpage "/worker/:worker-id/unassign" {:keys [worker-id]} 
   (jobs/unassign-job-from-worker worker-id)
   (html [:div "Unassigned"]))
