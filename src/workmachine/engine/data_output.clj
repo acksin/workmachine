@@ -2,9 +2,10 @@
 
 (defmacro define-output
   [input-name html]
-  `(defn ~input-name [name#]
-     {:name name#
-      :html ~html}))
+  `(defn ~input-name [fname#]
+     (let [~'name fname#]
+       {:name fname#
+        :html ~html})))
 
 (define-output string
   [:input {:type "text"

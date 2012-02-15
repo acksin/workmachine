@@ -2,9 +2,10 @@
 
 (defmacro define-input
   [input-name html]
-  `(defn ~input-name [name#]
-     {:name name#
-      :html ~html}))
+  `(defn ~input-name [fname#]
+     (let [~'name fname#]
+       {:name fname#
+        :html ~html})))
       
 
 (define-input image

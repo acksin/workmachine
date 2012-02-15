@@ -8,7 +8,7 @@
         [hiccup.core :only [html]]
         [hiccup.page-helpers :only [include-css html5]]))
 
-(defpartial worker-layout [worker-id worker-job]
+(defpartial worker-layout [& content]
   (html5
    [:head
     [:title "WorkMachine Worker"]
@@ -17,6 +17,19 @@
     [:div.container
      [:div.row
       [:div.span16
+       content
+       ]]]]))
+
+
+
+
+(defpage "/worker/:worker-id/assign" {:keys [worker-id]}
+  (let [worker-job (or (jobs/job-for-worker worker-id)
+                       (do
+                         (jobs/assign-job-to-worker worker-id)
+                         (jobs/job-for-worker worker-id)))]
+    (worker-layout
+     (if worker-job
        ;; TODO: Probably want to move this to the top.
        (let [instr (workflow/instruction
                     (workflow/statement
@@ -29,7 +42,7 @@
            (map (fn [field]
                   [:div
                    (let [input-field (data-input/parse field)]
-                     ((input-field :html) ((worker-job :job) (input-field :name))))
+                     ((input-field :html) ((worker-job :job) (keyword (input-field :name)))))
                    ])
                 (instr :input))]
           [:div {:id "inputs"}
@@ -37,21 +50,12 @@
            ;; Worker Input fields
            (map (fn [field]
                   [:div
-                   ((data-output/parse field) :html)])
+                   ((data-output/parse field) :html)
+                   ])
                 (instr :output))]
-          [:input {:type "submit" :value "Submit" :class "btn"}]])]]]]))
-
-
-
-
-(defpage "/worker/:worker-id/assign" {:keys [worker-id]}
-  (let [worker-job (or (jobs/job-for-worker worker-id)
-                       (do
-                         (jobs/assign-job-to-worker worker-id)
-                         (jobs/job-for-worker worker-id)))]
-    (if worker-job
-      (worker-layout worker-id worker-job)
-      (html [:div "No work"]))))
+          [:input {:type "submit" :value "Submit" :class "btn"}]])
+       
+       [:div "No work"]))))
 
 (defpage [:post "/worker/:worker-id/submit"]
   {:keys [worker-id submitted-work]}
