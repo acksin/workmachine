@@ -21,6 +21,12 @@ to run the app is in development mode.
 
     lein run
 
+## Documentation
+
+Check out the wiki for more information.
+
+     https://github.com/abhiyerra/workmachine/wiki
+
 ## License
 
 Copyright (C) 2012  Kesava Abhinav Yerra
