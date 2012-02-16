@@ -3,7 +3,8 @@
             [workmachine.models.jobs :as jobs]
             [workmachine.engine.workflow :as workflow]
             [workmachine.engine.data-input :as data-input]
-            [workmachine.engine.data-output :as data-output])
+            [workmachine.engine.data-output :as data-output]
+            [noir.request :as request])
   (:use [noir.core :only [defpartial defpage]]
         [hiccup.core :only [html]]
         [hiccup.page-helpers :only [include-css html5]]))
@@ -57,13 +58,10 @@
        
        [:div "No work"]))))
 
-(defpage [:post "/worker/:worker-id/submit"]
-  {:keys [worker-id submitted-work]}
-  ;; unassign the assignment from the worker.
-  ;; run-engine with the next instruction.
-  (let [worker-job (jobs/job-for-worker worker-id)
+(defpage [:post "/worker/:worker-id/submit"] {:keys [worker-id params] :as request}
+  (let [submitted-work (dissoc request :worker-id)
+        worker-job (jobs/job-for-worker worker-id)
         merged-job (merge worker-job {:job (merge (worker-job :job) submitted-work)})]
-    (println merged-job)
     (jobs/submit-job-from-worker worker-id)
     (workflow/run-engine merged-job)
     "done"))
