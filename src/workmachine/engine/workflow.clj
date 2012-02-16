@@ -54,8 +54,11 @@
       (finish job)
       (jobs/add-to-available-jobs (merge job {:label next-instruction-label})))))
 
-(defn start-workflow [program job]
+;; TODO: The params should actually just be a hash which we can
+;; merge. Would make it a lot easier.
+(defn start-workflow [program job workflow-name]
   (jobs/add-to-available-jobs (struct-map jobs/job
+                                :name workflow-name
                                 :program program
                                 :job job
                                 :label (instruction-label (first program)))))

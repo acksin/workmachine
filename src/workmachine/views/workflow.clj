@@ -19,18 +19,18 @@
       [:td (str (jobs/number-of-assigned-jobs))]]
      [:tr
       [:td "Finished Jobs:"]
-      [:td (str @jobs/finished-jobs)]]]]))
+      [:td (prn @jobs/finished-jobs)]]]]))
 
 
 (defpage [:put "/run"] {json-params :backbone}
   (let [program (json-params :program)
-        jobs (json-params :jobs)]
+        jobs (json-params :jobs)
+        workflow-name (json-params :name)]
     (println program)
     (println jobs)
     (doseq [job jobs]
-      (workflow/start-workflow (read-string program) job))
+      (workflow/start-workflow (read-string program) job workflow-name))
     "ok"))
 
 (defpage "/results" []
   '(results))
-

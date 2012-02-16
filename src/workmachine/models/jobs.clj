@@ -1,5 +1,6 @@
 (ns workmachine.models.jobs
-  (:require [clojure.contrib.string :as string]))
+  (:require [clojure.contrib.string :as string]
+            [redis.core :as redis]))
 
 (def available-jobs (ref []))
 (def assigned-jobs (ref {}))
@@ -9,8 +10,7 @@
   :program
   :job
   :label
-  :is-review
-  :reviews
+  :name
   :meta
   :callback)
 
@@ -50,4 +50,6 @@
 (defn add-to-finished-jobs [job]
   (dosync
    ;; XXX: This should actually be stored in a datastore somewhere. 
-   (alter finished-jobs concat [job])))
+   (alter finished-jobs concat [job]))
+  (redis/with-server {:host "127.0.0.1" :port 6379 :db 0}
+    (redis/rpush (job :name) (job :job))))

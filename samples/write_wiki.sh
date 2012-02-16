@@ -12,6 +12,7 @@ curl -X PUT -H "Content-Type: application/json" \
                                  [:text \"topic\"] 
                                  [:text \"info_link\"]] 
                          :output [[:text \"content\"]]}))",
+         "name": "write-wiki",
          "jobs": [{"topic_instruction": "Find something about cats.",
                    "research_instruction": "Find links for topic.",
                    "write_instruction": "Write about the topic. Use link."}]}' \
