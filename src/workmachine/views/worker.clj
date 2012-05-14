@@ -7,7 +7,7 @@
             [noir.request :as request])
   (:use [noir.core :only [defpartial defpage]]
         [hiccup.core :only [html]]
-        [hiccup.page-helpers :only [include-css include-js html5]]))
+        [hiccup.page :only [include-css include-js html5]]))
 
 (defpartial worker-layout [& content]
   (html5
@@ -57,7 +57,7 @@
                    ])
                 (instr :output))]
           [:input {:type "submit" :value "Submit" :class "btn"}]])
-       
+
        [:div "No work"]))))
 
 (defpage [:post "/worker/:worker-id/submit"] {:keys [worker-id params] :as request}
@@ -68,6 +68,6 @@
     (workflow/run-engine merged-job)
     "done"))
 
-(defpage "/worker/:worker-id/unassign" {:keys [worker-id]} 
+(defpage "/worker/:worker-id/unassign" {:keys [worker-id]}
   (jobs/unassign-job-from-worker worker-id)
   (html [:div "Unassigned"]))
