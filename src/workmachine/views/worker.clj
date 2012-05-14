@@ -7,13 +7,15 @@
             [noir.request :as request])
   (:use [noir.core :only [defpartial defpage]]
         [hiccup.core :only [html]]
-        [hiccup.page-helpers :only [include-css html5]]))
+        [hiccup.page-helpers :only [include-css include-js html5]]))
 
 (defpartial worker-layout [& content]
   (html5
    [:head
-    [:title "WorkMachine Worker"]
-    (include-css "/bootstrap/css/bootstrap.css")]
+    [:title "WorkMachine Work"]
+    (include-css "/bootstrap/css/bootstrap.css")
+    (include-js "/js/jquery-1.7.1.min.js")
+    (include-js "/js/backbone.js")]
    [:body
     [:div.container
      [:div.row
