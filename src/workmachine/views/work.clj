@@ -18,7 +18,6 @@
     [:div.container
      [:div#content.span16
       content]]
-
     (include-js "/js/jquery-1.7.2.min.js")
     (include-js "/js/json2.js")
     (include-js "/js/underscore.js")
@@ -26,9 +25,9 @@
     (include-js "/js/models/job.js")]))
 
 
-
-(defpage "/work"
-  (work-layout [:h2 "hi"]))
+(defpage "/work" []
+  (work-layout
+   [:h2 "hi"]))
 
 ;; (defpage "/work/:worker-id/assign" {:keys [worker-id]}
 ;;   (let [worker-job (or (jobs/job-for-worker worker-id)

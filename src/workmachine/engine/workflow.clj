@@ -41,7 +41,7 @@
   ;; Review:
   ;; Check if there is a review associated with the input.
   ;;  - if not then create a review job.
-  ;;  - 
+  ;;  -
   ;;
   ;; Should check if the data that was submitted was valid.
   ;; Do we trust the worker?
@@ -57,8 +57,9 @@
 ;; TODO: The params should actually just be a hash which we can
 ;; merge. Would make it a lot easier.
 (defn start-workflow [program job workflow-name]
-  (jobs/add-to-available-jobs (struct-map jobs/job
-                                :name workflow-name
-                                :program program
-                                :job job
-                                :label (instruction-label (first program)))))
+  (jobs/add-to-available-jobs
+   (struct-map jobs/job
+     :name workflow-name
+     :program program
+     :job job
+     :label (instruction-label (first program)))))
